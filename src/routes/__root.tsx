@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { initSingleVideoPlayback } from "../lib/singleVideo";
+import { setupOffline } from "../lib/offline";
 
 function NotFoundComponent() {
   return (
@@ -122,6 +123,9 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   useEffect(() => initSingleVideoPlayback(), []);
+  useEffect(() => {
+    void setupOffline();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
