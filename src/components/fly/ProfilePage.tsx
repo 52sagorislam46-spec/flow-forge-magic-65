@@ -1,7 +1,7 @@
 import { AddMoneyCard } from "./AddMoneyCard";
 import { UserBadges } from "./badges";
 import { useEffect, useState } from "react";
-import { ArrowLeft, BadgeCheck, Bell, Check, Eye, Globe, LayoutGrid, LogOut, Menu, MessageCircle, Moon, Play, Rows3, Settings, Share2, SquarePlay, Users, UserSquare, X } from "lucide-react";
+import { ArrowLeft, BadgeCheck, Bell, Check, Eye, Globe, GraduationCap, LayoutGrid, LogOut, Menu, MessageCircle, Moon, Play, Rows3, Settings, Share2, SquarePlay, Users, UserSquare, X } from "lucide-react";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 import { Avatar } from "./Avatar";
@@ -423,6 +423,13 @@ export function ProfilePage({
               >
                 <Sprout size={20} className="text-gray-500" />
                 <span className="text-sm font-medium">Fly Agro — কৃষকের বন্ধু</span>
+              </a>
+              <a
+                href="/study"
+                className="w-full flex items-center gap-3 px-3 py-3 rounded-xl text-left text-gray-800 hover:bg-gray-50"
+              >
+                <GraduationCap size={20} className="text-gray-500" />
+                <span className="text-sm font-medium">Settings</span>
               </a>
               <button
                 onClick={() => {
