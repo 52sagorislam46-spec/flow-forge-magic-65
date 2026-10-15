@@ -1,6 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDfzHhkNtrs3A_soHAWE51le-zrlbeXulc",
@@ -14,7 +19,19 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getFirestore(app);
+// In the browser keep a local copy of data so chats/posts show offline and
+// messages sent offline are queued and delivered when the connection returns.
+function createDb() {
+  if (typeof window === "undefined") return getFirestore(app);
+  try {
+    return initializeFirestore(app, {
+      localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }),
+    });
+  } catch {
+    return getFirestore(app);
+  }
+}
+export const db = createDb();
 
 const CLOUD_NAME = "xl2cfqi1";
 const UPLOAD_PRESET = "social_upload";

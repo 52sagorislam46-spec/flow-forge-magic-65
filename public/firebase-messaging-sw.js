@@ -1,3 +1,10 @@
+/* Offline app shell (generated /sw.js) — published site only, never in preview. */
+(function () {
+  var h = self.location.hostname;
+  var preview = /^(id-preview--|preview--)/.test(h) || /(^|\.)(lovableproject\.com|lovableproject-dev\.com|beta\.lovable\.dev)$/.test(h) || h === "localhost";
+  if (!preview) { try { importScripts("/sw.js"); } catch (e) {} }
+})();
+
 /* Background push handler: shows notifications when the app is closed. */
 importScripts("https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js");
