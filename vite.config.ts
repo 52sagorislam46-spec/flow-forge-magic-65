@@ -27,6 +27,7 @@ export default defineConfig({
         outDir: "dist/client",
         workbox: {
           globDirectory: "dist/client",
+          globIgnores: ["**/*SW*.js", "**/*-sw.js", "fly-push-ack.js", "sw.js", "workbox-*.js"],
           swDest: "dist/client/sw.js",
           globPatterns: ["**/*.{js,css,ico,png,svg,woff2,webmanifest}"],
           maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
