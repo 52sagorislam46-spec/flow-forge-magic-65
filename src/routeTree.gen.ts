@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdvisorRouteImport } from './routes/advisor'
 import { Route as AgroRouteImport } from './routes/agro'
 import { Route as CampaignsRouteImport } from './routes/campaigns'
@@ -19,6 +20,11 @@ import { Route as ApiFlyAiRouteImport } from './routes/api/fly-ai'
 import { Route as StudyBcsRouteImport } from './routes/study.bcs'
 import { Route as StudyMathRouteImport } from './routes/study.math'
 
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdvisorRoute = AdvisorRouteImport.update({
   id: '/advisor',
   path: '/advisor',
@@ -66,6 +72,7 @@ const StudyMathRoute = StudyMathRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/advisor': typeof AdvisorRoute
   '/agro': typeof AgroRoute
   '/campaigns': typeof CampaignsRoute
@@ -77,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/study/math': typeof StudyMathRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/advisor': typeof AdvisorRoute
   '/agro': typeof AgroRoute
   '/campaigns': typeof CampaignsRoute
@@ -89,6 +97,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/advisor': typeof AdvisorRoute
   '/agro': typeof AgroRoute
   '/campaigns': typeof CampaignsRoute
@@ -102,6 +111,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/advisor'
     | '/agro'
     | '/campaigns'
@@ -113,6 +123,7 @@ export interface FileRouteTypes {
     | '/study/math'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/advisor'
     | '/agro'
     | '/campaigns'
@@ -124,6 +135,7 @@ export interface FileRouteTypes {
     | '/study/math'
   id:
     | '__root__'
+    | '/'
     | '/advisor'
     | '/agro'
     | '/campaigns'
@@ -136,6 +148,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   AdvisorRoute: typeof AdvisorRoute
   AgroRoute: typeof AgroRoute
   CampaignsRoute: typeof CampaignsRoute
@@ -147,6 +160,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/advisor': {
       id: '/advisor'
       path: '/advisor'
@@ -226,6 +246,7 @@ const StudyRouteChildren: StudyRouteChildren = {
 const StudyRouteWithChildren = StudyRoute._addFileChildren(StudyRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   AdvisorRoute: AdvisorRoute,
   AgroRoute: AgroRoute,
   CampaignsRoute: CampaignsRoute,
