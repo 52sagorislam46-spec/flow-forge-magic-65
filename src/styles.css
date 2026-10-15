@@ -259,6 +259,7 @@ textarea,
 div[style*="position: fixed"][style*="bottom"] {
   display: none !important;
 }
+:root {
   --team-red-soft: oklch(0.962 0.017 25);
   --team-red-muted: oklch(0.86 0.065 25);
   --success-soft: oklch(0.953 0.027 156);
