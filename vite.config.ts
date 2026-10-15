@@ -24,7 +24,10 @@ export default defineConfig({
         injectRegister: null,
         manifest: false,
         devOptions: { enabled: false },
+        outDir: "dist/client",
         workbox: {
+          globDirectory: "dist/client",
+          swDest: "dist/client/sw.js",
           globPatterns: ["**/*.{js,css,ico,png,svg,woff2,webmanifest}"],
           maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
           navigateFallback: null,
