@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { BookOpenCheck, Swords } from 'lucide-react';
 
-export const Route = createFileRoute('/study')({
+export const Route = createFileRoute('/study/')({
   head: () => ({ meta: [
     { title: 'Fly Arena — অংক ও BCS কুইজ গেম' },
     { name: 'description', content: 'দুটি গেম এক জায়গায়: Tug of Math অংকের লড়াই এবং ১০ সেকেন্ডের BCS কুইজ চ্যালেঞ্জ।' },
