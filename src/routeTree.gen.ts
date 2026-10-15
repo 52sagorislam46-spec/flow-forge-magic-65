@@ -61,14 +61,14 @@ const StudyIndexRoute = StudyIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudyBcsRoute = StudyBcsRouteImport.update({
-  id: '/bcs',
-  path: '/bcs',
-  getParentRoute: () => StudyRoute,
+  id: '/study/bcs',
+  path: '/study/bcs',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const StudyMathRoute = StudyMathRouteImport.update({
-  id: '/math',
-  path: '/math',
-  getParentRoute: () => StudyRoute,
+  id: '/study/math',
+  path: '/study/math',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -155,6 +155,8 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   ApiDiagnoseRoute: typeof ApiDiagnoseRoute
   ApiFlyAiRoute: typeof ApiFlyAiRoute
+  StudyBcsRoute: typeof StudyBcsRoute
+  StudyMathRoute: typeof StudyMathRoute
   StudyIndexRoute: typeof StudyIndexRoute
 }
 
@@ -218,17 +220,17 @@ declare module '@tanstack/react-router' {
     }
     '/study/bcs': {
       id: '/study/bcs'
-      path: '/bcs'
+      path: '/study/bcs'
       fullPath: '/study/bcs'
       preLoaderRoute: typeof StudyBcsRouteImport
-      parentRoute: typeof StudyRoute
+      parentRoute: typeof rootRouteImport
     }
     '/study/math': {
       id: '/study/math'
-      path: '/math'
+      path: '/study/math'
       fullPath: '/study/math'
       preLoaderRoute: typeof StudyMathRouteImport
-      parentRoute: typeof StudyRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -241,6 +243,8 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   ApiDiagnoseRoute: ApiDiagnoseRoute,
   ApiFlyAiRoute: ApiFlyAiRoute,
+  StudyBcsRoute: StudyBcsRoute,
+  StudyMathRoute: StudyMathRoute,
   StudyIndexRoute: StudyIndexRoute,
 }
 export const routeTree = rootRouteImport
