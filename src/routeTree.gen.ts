@@ -14,9 +14,9 @@ import { Route as AdvisorRouteImport } from './routes/advisor'
 import { Route as AgroRouteImport } from './routes/agro'
 import { Route as CampaignsRouteImport } from './routes/campaigns'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as StudyRouteImport } from './routes/study'
 import { Route as ApiDiagnoseRouteImport } from './routes/api/diagnose'
 import { Route as ApiFlyAiRouteImport } from './routes/api/fly-ai'
+import { Route as StudyIndexRouteImport } from './routes/study.index'
 import { Route as StudyBcsRouteImport } from './routes/study.bcs'
 import { Route as StudyMathRouteImport } from './routes/study.math'
 
@@ -45,11 +45,6 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
-const StudyRoute = StudyRouteImport.update({
-  id: '/study',
-  path: '/study',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiDiagnoseRoute = ApiDiagnoseRouteImport.update({
   id: '/api/diagnose',
   path: '/api/diagnose',
@@ -58,6 +53,11 @@ const ApiDiagnoseRoute = ApiDiagnoseRouteImport.update({
 const ApiFlyAiRoute = ApiFlyAiRouteImport.update({
   id: '/api/fly-ai',
   path: '/api/fly-ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudyIndexRoute = StudyIndexRouteImport.update({
+  id: '/study/',
+  path: '/study/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudyBcsRoute = StudyBcsRouteImport.update({
@@ -77,11 +77,11 @@ export interface FileRoutesByFullPath {
   '/agro': typeof AgroRoute
   '/campaigns': typeof CampaignsRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/study': typeof StudyRouteWithChildren
   '/api/diagnose': typeof ApiDiagnoseRoute
   '/api/fly-ai': typeof ApiFlyAiRoute
   '/study/bcs': typeof StudyBcsRoute
   '/study/math': typeof StudyMathRoute
+  '/study/': typeof StudyIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -89,11 +89,11 @@ export interface FileRoutesByTo {
   '/agro': typeof AgroRoute
   '/campaigns': typeof CampaignsRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/study': typeof StudyRouteWithChildren
   '/api/diagnose': typeof ApiDiagnoseRoute
   '/api/fly-ai': typeof ApiFlyAiRoute
   '/study/bcs': typeof StudyBcsRoute
   '/study/math': typeof StudyMathRoute
+  '/study': typeof StudyIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -102,11 +102,11 @@ export interface FileRoutesById {
   '/agro': typeof AgroRoute
   '/campaigns': typeof CampaignsRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/study': typeof StudyRouteWithChildren
   '/api/diagnose': typeof ApiDiagnoseRoute
   '/api/fly-ai': typeof ApiFlyAiRoute
   '/study/bcs': typeof StudyBcsRoute
   '/study/math': typeof StudyMathRoute
+  '/study/': typeof StudyIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -116,11 +116,11 @@ export interface FileRouteTypes {
     | '/agro'
     | '/campaigns'
     | '/reset-password'
-    | '/study'
     | '/api/diagnose'
     | '/api/fly-ai'
     | '/study/bcs'
     | '/study/math'
+    | '/study/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -128,11 +128,11 @@ export interface FileRouteTypes {
     | '/agro'
     | '/campaigns'
     | '/reset-password'
-    | '/study'
     | '/api/diagnose'
     | '/api/fly-ai'
     | '/study/bcs'
     | '/study/math'
+    | '/study'
   id:
     | '__root__'
     | '/'
@@ -140,11 +140,11 @@ export interface FileRouteTypes {
     | '/agro'
     | '/campaigns'
     | '/reset-password'
-    | '/study'
     | '/api/diagnose'
     | '/api/fly-ai'
     | '/study/bcs'
     | '/study/math'
+    | '/study/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -153,9 +153,9 @@ export interface RootRouteChildren {
   AgroRoute: typeof AgroRoute
   CampaignsRoute: typeof CampaignsRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
-  StudyRoute: typeof StudyRouteWithChildren
   ApiDiagnoseRoute: typeof ApiDiagnoseRoute
   ApiFlyAiRoute: typeof ApiFlyAiRoute
+  StudyIndexRoute: typeof StudyIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -195,13 +195,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/study': {
-      id: '/study'
-      path: '/study'
-      fullPath: '/study'
-      preLoaderRoute: typeof StudyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/diagnose': {
       id: '/api/diagnose'
       path: '/api/diagnose'
@@ -214,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/api/fly-ai'
       fullPath: '/api/fly-ai'
       preLoaderRoute: typeof ApiFlyAiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/study/': {
+      id: '/study/'
+      path: '/study'
+      fullPath: '/study/'
+      preLoaderRoute: typeof StudyIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/study/bcs': {
@@ -233,27 +233,15 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface StudyRouteChildren {
-  StudyBcsRoute: typeof StudyBcsRoute
-  StudyMathRoute: typeof StudyMathRoute
-}
-
-const StudyRouteChildren: StudyRouteChildren = {
-  StudyBcsRoute: StudyBcsRoute,
-  StudyMathRoute: StudyMathRoute,
-}
-
-const StudyRouteWithChildren = StudyRoute._addFileChildren(StudyRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdvisorRoute: AdvisorRoute,
   AgroRoute: AgroRoute,
   CampaignsRoute: CampaignsRoute,
   ResetPasswordRoute: ResetPasswordRoute,
-  StudyRoute: StudyRouteWithChildren,
   ApiDiagnoseRoute: ApiDiagnoseRoute,
   ApiFlyAiRoute: ApiFlyAiRoute,
+  StudyIndexRoute: StudyIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
